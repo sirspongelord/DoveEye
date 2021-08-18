@@ -1,0 +1,40 @@
+﻿<Window x:Name="GroupingManagerWindow" x:Class="DoveEye.GroupingManager"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DoveEye"
+        xmlns:src="clr-namespace:DoveEyeLogic"
+        mc:Ignorable="d"
+        Title="GroupingManager" Height="1040" Width="1900">
+    <Window.Resources>
+        <local:GroupingManagerUserInterface x:Key="GMUI"></local:GroupingManagerUserInterface>
+        <local:App x:Key="AppResource"></local:App>
+        <DataTemplate x:Key="ImageContainer" DataType="{x:Type src:DoveEyeContextualImage}">
+            <StackPanel>
+                <Image Height="200" Source="{Binding Path=Image.DisplayThumbnail}" x:Name="Image"></Image>
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="SplitButton" Height="16" Content="Split Group Here"></Button>
+                </StackPanel>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="GroupContainer" DataType="{x:Type src:DoveEyeImageGroup}">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Height="20"></TextBox>
+                </StackPanel>
+                <ListView ItemsSource="{Binding Path=Images}" ItemTemplate="{StaticResource ImageContainer}"></ListView>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid DataContext="{x:Type local:GroupingManagerUserInterface}">
+        <ListBox x:Name="lvContent" HorizontalAlignment="Left" Height="989" Margin="10,10,0,0" VerticalAlignment="Top" Width="1430" ItemsSource="{Binding Path=Canvas}" ItemTemplate="{StaticResource GroupContainer}"></ListBox>
+        <Image HorizontalAlignment="Left" Height="100" Margin="1502,665,0,0" VerticalAlignment="Top" Width="100"/>
+        <Image HorizontalAlignment="Left" Height="334" Margin="1453,573,0,0" VerticalAlignment="Top" Width="429"/>
+        <Button Content="Sort by Sharpness" HorizontalAlignment="Left" Margin="1453,10,0,0" VerticalAlignment="Top" Width="212" Height="40"/>
+        <Button Content="Sort by Index" HorizontalAlignment="Left" Margin="1670,10,0,0" VerticalAlignment="Top" Width="212" Height="40"/>
+        <Button Content="Finalize" HorizontalAlignment="Left" Margin="1453,912,0,0" VerticalAlignment="Top" Width="429" Height="87"/>
+        <Label Content="Select Sharpness Area..." HorizontalAlignment="Left" Margin="1453,542,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>

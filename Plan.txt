@@ -1,0 +1,21 @@
+﻿user interface design
+
+things
+- disable auto sharpness area updating
+- need to make bitmapimage garbage become a thing because windows is questionable
+
+grouping manager window
+- shows groupings 
+- shows sharpness area overtop of groupings
+- allows sharpness area to change around 
+- button to compute and sort by sharpness vs sort by image index
+- groups can be labelled with a textbox at the top. 
+- Selecting a group updates information on the side allowing sharpness area to change if necessary
+- drag/drop likely the best way to manage individual images
+- right click menu probably the best way to split images
+- each image has a drop-down category where you can chose "Best" or "Rest"
+
+finish analysis button 
+- move into folders by group option
+- move into folders by best/worst option
+- delete worst images option with 50 confirmation messageboxes

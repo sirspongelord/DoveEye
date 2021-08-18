@@ -1,0 +1,17 @@
+﻿<Window x:Class="DoveEye.ComparsionCheckWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DoveEye"
+        mc:Ignorable="d"
+        Title="ComparsionCheckWindow" Height="805.5" Width="1704">
+    <Grid>
+        <Image x:Name="img1" HorizontalAlignment="Left" Height="600" Margin="10,68,0,0" VerticalAlignment="Top" Width="812"/>
+        <Image x:Name="img2" HorizontalAlignment="Left" Height="600" Margin="874,68,0,0" VerticalAlignment="Top" Width="812"/>
+        <Label Content="Do these images belong in the same group?" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="374" Height="53" FontSize="18"/>
+        <Button x:Name="btnYes" Content="Yes" HorizontalAlignment="Left" Margin="645,694,0,0" VerticalAlignment="Top" Width="177" Height="48" Click="btnYes_Click"/>
+        <Button x:Name="btnNo" Content="No" HorizontalAlignment="Left" Margin="874,694,0,0" VerticalAlignment="Top" Width="177" Height="48" Click="btnNo_Click"/>
+
+    </Grid>
+</Window>
