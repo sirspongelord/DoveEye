@@ -27,6 +27,7 @@ namespace DoveEye
     /// </summary>
     class UI : INotifyPropertyChanged
     {
+        //This class doesn't do anything and will eventually be removed.
         public string textforlabel = "";
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -37,11 +38,17 @@ namespace DoveEye
     }
     public partial class MainWindow : Window
     {
-        List<DoveEyeContextualImage> Images = new List<DoveEyeContextualImage>();
-        UI userinterface = new UI();
-        DoveEyeImageCanvas DoveEyeCanvas = new DoveEyeImageCanvas("Y:\\Media\\Image Demo\\", 8, 6);
+        //Entry point of the program.
+        List<DoveEyeContextualImage> Images = new List<DoveEyeContextualImage>(); //sets null list
+        UI userinterface = new UI(); //to be removed
 
+
+        //!! Program will not run unless this filepath exists and contains images !!
         string root = "Y:\\Media\\Image Demo\\";
+        
+        
+        DoveEyeImageCanvas DoveEyeCanvas = new DoveEyeImageCanvas(root, 8, 6);
+
         
         //DoveEye Main Window Objective: Get image source and similarity analysis settings.
         public string text = "";
