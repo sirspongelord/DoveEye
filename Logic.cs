@@ -24,7 +24,7 @@ namespace DoveEyeLogic
     {
         //Includes a DoveEyeImage with relevant contextual properties set by the user.
 
-        public DoveEyeImage Image;
+        public DoveEyeImage Image { get; set; }
 
         public int ImageIndex;
         public int ImageGroup;
@@ -73,7 +73,7 @@ namespace DoveEyeLogic
             }
         }
 
-        public List<ImageState> ImageStates;
+        public List<ImageState> ImageStates { get; set; }
 
 
         public DoveEyeContextualImage(DoveEyeImageFileInformation fileInfo, FileStream stream)
@@ -152,16 +152,16 @@ namespace DoveEyeLogic
         public Bitmap Thumbnail;
         public BitmapSource DisplayThumbnail
         {
-            get
-            {
-                //takes around 10ms. This could slow down user interface performance, but it also may not be too bad
-                BitmapSource i = Imaging.CreateBitmapSourceFromHBitmap(
-                              Thumbnail.GetHbitmap(),
-                              IntPtr.Zero,
-                              Int32Rect.Empty,
-                              BitmapSizeOptions.FromEmptyOptions());
-                return i;
-            }
+            get; set;
+        }
+        private BitmapSource Bitmap2BitmapImage(Bitmap bitmap)
+        {
+            BitmapSource i = Imaging.CreateBitmapSourceFromHBitmap(
+                           bitmap.GetHbitmap(),
+                           IntPtr.Zero,
+                           Int32Rect.Empty,
+                           BitmapSizeOptions.FromEmptyOptions());
+            return i;
         }
         public DoveEyeHistogram Histogram;
 
@@ -227,6 +227,10 @@ namespace DoveEyeLogic
                 Thumbnail = new Bitmap(memstream);
                 memstream.Dispose();
             }
+
+            DisplayThumbnail = Bitmap2BitmapImage(Thumbnail);
+            DisplayThumbnail.Freeze();
+
             //DisplayThumbnail = BitmapToImageSource(Thumbnail);
 
 
@@ -404,10 +408,10 @@ namespace DoveEyeLogic
     public class DoveEyeImageGroup
     {
         //information in a specific grouping
-        public List<DoveEyeContextualImage> Images;
+        public List<DoveEyeContextualImage> Images { get; set; }
 
-        public int GroupIndex;
-        public string GroupName;
+        public int GroupIndex { get; set; }
+        public string GroupName { get; set; }
 
         public int MaxSharpness;
         public int MinSharpness;
@@ -427,14 +431,14 @@ namespace DoveEyeLogic
     public class DoveEyeImageCanvas
     {
         //name can be do better
-        public string root;
-        public List<DoveEyeImageFileInformation> ImageFiles;
-        public int TotalImages;
+        public string root { get; set; }
+        public List<DoveEyeImageFileInformation> ImageFiles { get; set; }
+        public int TotalImages { get; set; }
 
         int threads;
         int buffer;
 
-        public DoveEyeGroupingManager manager;
+        public DoveEyeGroupingManager manager { get; set; }
 
         public DoveEyeImageCanvas(string root, int threads, int buffer)
         {
@@ -443,9 +447,9 @@ namespace DoveEyeLogic
             this.buffer = buffer;
         }
 
-        public List<DoveEyeImageGroup> ImageGroups;
+        public List<DoveEyeImageGroup> ImageGroups { get; set; }
 
-        public DoveEyeAnalysisManager AnalysisManager;
+        public DoveEyeAnalysisManager AnalysisManager { get; set; }
 
         public void MergeGroups(int index1, int index2)
         {

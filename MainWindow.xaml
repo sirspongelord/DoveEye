@@ -10,11 +10,9 @@
         <local:UI x:Key="userinterface"></local:UI>
     </Window.Resources>
     <Grid x:Name="Grid" DataContext="{StaticResource userinterface}">
-        <TextBlock HorizontalAlignment="Left" Margin="20,18,0,0" TextWrapping="Wrap" Text="DoveVision Beta 0.1" VerticalAlignment="Top" Width="762" Height="41" FontSize="36" FontFamily="Cambria"/>
+        <TextBlock HorizontalAlignment="Left" Margin="20,18,0,0" TextWrapping="Wrap" Text="DoveVision Beta 0.1" VerticalAlignment="Top" Width="762" Height="41" FontSize="36" FontFamily="Century Gothic"/>
         <Button x:Name="btnSelectSource" Content="Select Source Directory..." HorizontalAlignment="Left" VerticalAlignment="Top" Width="184" Margin="20,78,0,0"  Height="27" Click="btnSelectSource_Click"/>
         <Label x:Name="lblSourceDirectory" Content="{Binding Path=textforlabel}" HorizontalAlignment="Left" Margin="209,78,0,0" VerticalAlignment="Top" Height="27"/>
-        <ComboBox HorizontalAlignment="Left" Margin="20,150,0,0" VerticalAlignment="Top" Width="184"/>
-        <Label Content="Select an Analysis Method&#xD;&#xA;" HorizontalAlignment="Left" Margin="20,124,0,0" VerticalAlignment="Top" Height="26"/>
-        <Button x:Name="btnStartAnalysis" Content="Start Analysis" HorizontalAlignment="Left" Margin="20,233,0,0" VerticalAlignment="Top" Width="88" Height="29" Click="btnStartAnalysis_Click"/>
+        <Button x:Name="btnStartAnalysis" Content="Start Analysis" HorizontalAlignment="Left" Margin="20,119,0,0" VerticalAlignment="Top" Width="184" Height="29" Click="btnStartAnalysis_Click"/>
     </Grid>
 </Window>

@@ -23,7 +23,13 @@ namespace DoveEye
     public class GroupingManagerUserInterface : INotifyPropertyChanged
     {
         //Contains everything the UserInterface needs to Display
-        public DoveEyeImageCanvas Canvas; //all user interface elements should just be somewhere in there. probably.
+
+        public DoveEyeImageCanvas Canvas
+        {
+            get { return privateCanvas;}
+        }//all user interface elements should just be somewhere in there. probably.
+
+        public DoveEyeImageCanvas privateCanvas;
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string name = null)
@@ -34,11 +40,24 @@ namespace DoveEye
     public partial class GroupingManager : Window
     {
         public DoveEyeImageCanvas canvas;
+        public GroupingManagerUserInterface GMUI;
         public GroupingManager(DoveEyeImageCanvas canvas)
         {
-            InitializeComponent();
             this.canvas = canvas;
-            lvContent.DataContext = canvas.ImageGroups;
+            GMUI = new GroupingManagerUserInterface();
+
+            GMUI.privateCanvas = canvas;
+
+
+            InitializeComponent();
+            grid.DataContext = GMUI;
+
+            GMUI.OnPropertyChanged();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

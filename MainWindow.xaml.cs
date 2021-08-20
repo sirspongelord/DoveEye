@@ -37,6 +37,7 @@ namespace DoveEye
     }
     public partial class MainWindow : Window
     {
+        //nothing is implemented in the mainwindow.
         List<DoveEyeContextualImage> Images = new List<DoveEyeContextualImage>();
         UI userinterface = new UI();
         DoveEyeImageCanvas DoveEyeCanvas = new DoveEyeImageCanvas("Y:\\Media\\Image Demo\\", 8, 6);
@@ -53,7 +54,14 @@ namespace DoveEye
 
         private void btnSelectSource_Click(object sender, RoutedEventArgs e)
         {
-            
+            using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+            {
+                System.Windows.Forms.DialogResult result = dialog.ShowDialog();
+                root = (result == System.Windows.Forms.DialogResult.OK) ? dialog.SelectedPath : "";
+            }
+
+            //Update Label
+            lblSourceDirectory.Content = "Source: " + root;
         }
 
         private void btnStartAnalysis_Click(object sender, RoutedEventArgs e)
@@ -65,12 +73,17 @@ namespace DoveEye
                 Thread.Sleep(100);
             }
 
+
+
             DoveEyeCanvas.AnalyzeGroupings();
 
             while(!DoveEyeCanvas.manager.AnalysisComplete)
             {
                 Thread.Sleep(100);
             }
+
+            DoveEyeCanvas.ImageGroups = DoveEyeCanvas.manager.Groupings;
+            
 
             GroupingManager groupmanager = new GroupingManager(DoveEyeCanvas);
 
