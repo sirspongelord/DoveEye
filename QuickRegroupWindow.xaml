@@ -1,0 +1,56 @@
+﻿<Window x:Class="DoveEye.QuickRegroupWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DoveEye"
+        mc:Ignorable="d"
+        Title="⚡ Quick Regroup..." Height="1040" Width="1900"
+        xmlns:src="clr-namespace:DoveEyeLogic"
+        WindowStartupLocation="CenterScreen">
+    <Window.Background>
+        <ImageBrush ImageSource="/dovevision background compressed.jpg" Stretch="UniformToFill" Opacity="0.2"></ImageBrush>
+    </Window.Background>
+    <Window.Resources>
+        <local:QGUI x:Key="QGUI"></local:QGUI>
+        <DataTemplate x:Key="ImageContainer" DataType="{x:Type src:DoveEyeContextualImage}">
+            <StackPanel>
+                <Image Height="70" Source="{Binding Path=Image.DisplayThumbnail}" x:Name="Image"></Image>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="GroupContainer" DataType="{x:Type src:DoveEyeImageGroup}">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Vertical">
+                    <Button x:Name="MrgUp" Click="MrgUp_Click" Height="26" Width="80" Content="Merge Up"></Button>
+                    <Button x:Name="Split" Click="Split_Click" Height="26" Width="80" Content="Split..."></Button>
+                    <Button x:Name="MrgDown" Click="MrgDown_Click" Height="26" Width="80" Content="Merge Down"></Button>
+                </StackPanel>
+                <ListBox x:Name="lbImgGroup" SelectionChanged="lbImgGroup_SelectionChanged" ItemsSource="{Binding Path=Images, Mode=TwoWay}"  ItemTemplate="{StaticResource ImageContainer}">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Focusable="False" Orientation="Horizontal" Width="1770"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.Background>
+                        <SolidColorBrush Color="White" Opacity="0.25">
+                            
+                        </SolidColorBrush>
+                    </ListBox.Background>
+                </ListBox>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid x:Name="qgGrid" DataContext="{DynamicResource QGUI}">
+        <Label FontFamily="Abadi" FontSize="20" Foreground="White"  Content="DoveVision found the following groups..." HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <Button Content="Help" HorizontalAlignment="Left" Margin="1792,10,0,0" VerticalAlignment="Top" Width="90" Height="26"/>
+        <ListBox ItemTemplate="{StaticResource GroupContainer}"  ItemsSource="{Binding Path=canvas.ImageGroups, Mode=TwoWay}" ScrollViewer.CanContentScroll="false" x:Name="lvGroupContent" HorizontalAlignment="Left" Height="912" Margin="10,41,0,0" VerticalAlignment="Top" Width="1872">
+            <ListBox.Background>
+                <SolidColorBrush Color="Black" Opacity="0.7">
+                    
+                </SolidColorBrush>
+            </ListBox.Background>
+        </ListBox>
+        <Button x:Name="btnFinish" Content="Done Regrouping Photos" HorizontalAlignment="Left" Margin="1706,958,0,0" VerticalAlignment="Top" Width="176" Height="41" Click="btnFinish_Click"/>
+
+    </Grid>
+</Window>

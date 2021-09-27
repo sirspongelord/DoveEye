@@ -1,0 +1,56 @@
+﻿Changelog 9/27/2021:
+- Fixed a bug where the User interface would lag for a long time when "Set All to High Quality" or LQ was clicked.
+- Fixed a bug where the program would calculate extremely high sharpness values when images contain few feature points.
+- Improved autocategorize with respect to exposure by implementing a new system that searches for outliers for exposure assignment
+	based on standard deviation and mean values rather than a percentage of all photos. This was in response to a beta tester suggestion.
+- Fixed a bug where standard deviation based exposure assignment would sometimes classify an entire group of near-identical images as
+	Low Quality as the standard deviation was near-zero.
+- Fixed a bug where the program would crash if it tries to create a folder with invalid characters.
+
+Chagelog 9/25/21:
+- Patched an issue where reading a MagickImage did not occur properly even on fallback due to memory issues by making it try 10 more times before crashing the program.
+- Implemnted AI Face Detection (Experimental)
+- Implemented DoveEye Installer and fixed relevant bugs (Now works!)
+- Fixed a bug where not selecting a directory would send photos into the root folder of the exe file LOL
+
+NOTE: Program is formally ready for a CLOSED BETA TEST.
+
+
+Known Issues:
+- MainWindow does not close when analysis complete
+- MAJOR: program UI does not scale properly - is currently fixed to whatever it is right now.
+- Enlarged View not implemented yet
+- Sharpness is currently text
+- Image Analysis Options not implemented yet (PARTLY FIXED)
+- When assigning images, it is probably best to keep x% of each group, x% of all images, or, find the largest drop in sharpness and place the cutoff there.
+
+Changelog to 9/23/2021 to 9/24/2021:
+- Implemented autoassign options
+- Fixed a bug where the last grouping never showed up in the analysis.
+- Fixed a bug where merging down threw an exception
+- Fixed a bug where merging groups cloned images
+- Implemented deleting photos (currently warns user for each photo)
+- Fixed a bug where checking "Keep destination as source" did not update the destination label
+- Fixed a bug where the program crashes if there is a non-image in the directory
+- Fixed a bug where the program would freeze temporarily on Analysis Start
+- Fixed an issue where there was no logical way to close the Finalize window (it now closes automatically)
+- Fixed an issue where sharpness analysis did not take into account image size.
+- Improved Human Prompting System
+- Fixed a bug where the program crashes if there are no images to prompt to the human.
+- Fixed a bug where the Deletion warning did not show properly at all.
+- Fixed a bug where the progress bar does not function in the finalize window.
+- Fixed a bug where the program crashes when there are no images in the directory.
+- Fixed a bug where databinding did not function properly on the combobox selected index.
+- Implemented "set all to low quality" and high quality buttons per image group
+- Improved groupingmanager user interface slightly.
+- Patched an issue where environment exit did not inform the user before spending time to delete all temporary files.
+- Patched an issue where quickCategorize would show up below groupingmanager.
+- Implemented threadcount analysis option.
+- Implemented Thumbnail Scale analysis option.
+- Improved MainWindow User Interface.
+- Renamed all important windows
+- Fixed a bug where program crashes when Sony ARW files are read (HOTFIX - may not be the most efficient!)
+- Patched an issue where the user was not notified that enlarged view was not implemented yet.
+
+Bugs:
+- Environment Exit does not really work properly. (patched ish)

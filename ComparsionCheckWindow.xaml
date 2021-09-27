@@ -3,15 +3,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        WindowStartupLocation="CenterScreen"
         xmlns:local="clr-namespace:DoveEye"
         mc:Ignorable="d"
-        Title="ComparsionCheckWindow" Height="805.5" Width="1704">
-    <Grid>
-        <Image x:Name="img1" HorizontalAlignment="Left" Height="600" Margin="10,68,0,0" VerticalAlignment="Top" Width="812"/>
-        <Image x:Name="img2" HorizontalAlignment="Left" Height="600" Margin="874,68,0,0" VerticalAlignment="Top" Width="812"/>
-        <Label Content="Do these images belong in the same group?" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="374" Height="53" FontSize="18"/>
-        <Button x:Name="btnYes" Content="Yes" HorizontalAlignment="Left" Margin="645,694,0,0" VerticalAlignment="Top" Width="177" Height="48" Click="btnYes_Click"/>
-        <Button x:Name="btnNo" Content="No" HorizontalAlignment="Left" Margin="874,694,0,0" VerticalAlignment="Top" Width="177" Height="48" Click="btnNo_Click"/>
+        Title="Image Comparision Prompt" Height="805.5" Width="1704"
+        Topmost="{Binding Source={x:Static Application.Current},Path=MainWindow.IsActive,Mode=OneWay}">
+    <Window.Resources>
+        <local:ComparisonCheckUI x:Key="CCUI"></local:ComparisonCheckUI>
+    </Window.Resources>
+    <Window.Background>
+        <ImageBrush ImageSource="/dovevision background compressed.jpg" Stretch="UniformToFill" Opacity="0.2"></ImageBrush>
+    </Window.Background>
+    <Grid x:Name="CCGrid" DataContext="{DynamicResource CCUI}">
+        <Image x:Name="img1" Source="{Binding Path = image1.DisplayThumbnail, Mode=TwoWay}" HorizontalAlignment="Left" Height="600" Margin="10,68,0,0" VerticalAlignment="Top" Width="812"/>
+        <Image x:Name="img2" Source="{Binding Path = image2.DisplayThumbnail, Mode=TwoWay}" HorizontalAlignment="Left" Height="600" Margin="874,68,0,0" VerticalAlignment="Top" Width="812"/>
+        <Label Foreground="White" FontFamily="Abadi" FontSize="24" Content="Do these images belong in the same group?" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="1676" Height="53" />
+        <Button x:Name="btnYes" Foreground="Green" FontSize="18" Content="Yes" HorizontalAlignment="Left" Margin="645,694,0,0" VerticalAlignment="Top" Width="177" Height="48" Click="btnYes_Click"/>
+        <Button x:Name="btnNo" Foreground="Red" FontSize="18" Content="No" HorizontalAlignment="Left" Margin="874,694,0,0" VerticalAlignment="Top" Width="177" Height="48" Click="btnNo_Click"/>
+        <Label Content="{Binding Path=comparisonValue}" x:Name="lblDEBUG" Foreground="White" HorizontalAlignment="Left" Margin="10,739,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

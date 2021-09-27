@@ -1,4 +1,62 @@
-﻿user interface design
+﻿KNOWN ISSUES:
+1) Merge Down does not work properly in quickRegroup
+2) GM looks ugly
+3) Massive Memory Issues still occur (FIXED MAYBE)
+4) Sharpness Detection algorithm performing slowly (FIXED)
+5) Grouping Detection Fails when little image information is provided. (CHANGE TO FALLBACK ALGORITHM???)
+6) Grouping human prompts seem to be too frequent?
+7) (POTENTIAL) Sharpness Detection algorithm may result in significantly different numbers based on size?? (FIXED)
+8) (POTENTIAL) Image analysis might not default to raw format
+9) Sharpness Analysis uses 1500px, rather than 1/4 of image width/etc.
+
+NOT YET IMPLEMENTED:
+1) Entire Finalize system
+
+Grouping manager finishing:
+1) get rid of grouping management buttons (replaced with quickregroup)
+2) Implement Large Thumbnail View
+3) Implement Enlarged View + EXIF data??
+4) Implement some way to categorize images - keep it as a listbox for now I guess?
+5) Textbox - try seeing if it can be a listboxable textbox
+6) Scrolling - try to see if you can interrupt mousescroll events and send it to the listbox
+7) background etc. clean it up a bit
+
+
+then need to implement help videos or something, donation page, thats all!
+
+FUTURE RELEASES:
+1) Image Analysis Options (backend somewhat supports this already)
+	image thumbnail quality
+	sharpness area - facial, center, full, image subject detection
+	prompt threshold options?
+
+
+
+user interface design
+
+CURRENT:
+- find some solution to the sharpnessanalysis issue:
+	- takes too much time
+	possible solutions
+		-move it to the analysis
+		-make it analyze off of the thumbnail (probably best?)
+- some alternative way to store the image in memory please?? not a bitmap
+
+Best thing might be to just....
+Abandon the sharpness analysis customization option entirely for beta release - let it autoassign sharpness area and calculate sharpness based on that area
+and if that doesn't work, default to image center or whole image
+move the image sharpness analysis to the initial doveeyeimage constructor
+sortbysharpness before even pushing the thing to gmui and opening the new window.
+evaluate sharpenss based on a thumbnail, chose a resize option that doesn't have as much noise as currently seen.
+potentially use a thumbnail of 40% size, then downscale it again to 20% size for memory usage.
+
+
+
+probably need to switch this whole project over to libraw eventually: https://github.com/laheller/SharpLibraw
+
+
+
+
 
 things
 - disable auto sharpness area updating

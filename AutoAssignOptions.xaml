@@ -1,0 +1,29 @@
+﻿<Window x:Class="DoveEye.AutoAssignOptions"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DoveEye"
+        mc:Ignorable="d"
+        Title="DoveEye Beta v0.1 Automatic Culling Options" Height="450" Width="800">
+    <Window.Resources>
+        <local:AAOUI x:Key="UI"></local:AAOUI>
+    </Window.Resources>
+    <Grid x:Name="AAGrid" DataContext="{StaticResource UI}">
+        <Label Content="Automatically Assign Low/High Quality Tags Based On..." HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="Select a Variable..." HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.301,0.322"/>
+        <ComboBox x:Name="cbAssignmentOptions" ItemsSource="{Binding Path=Variables}" SelectedIndex="{Binding Path=VariablesSelectedIndex, Mode=TwoWay}" HorizontalAlignment="Left" Margin="119,72,0,0" VerticalAlignment="Top" Width="205" Height="26"/>
+        <Label Content="Select Threshold to Assign Categories:" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top"/>
+        <Slider x:Name="sldrAssignmentCategories" ValueChanged="sldrAssignmentCategories_ValueChanged" Value="{Binding Path=threshold}" HorizontalAlignment="Left" Margin="334,107,0,0" Minimum="0" Maximum="1" SmallChange="0.001" VerticalAlignment="Top" Height="18" Width="366"/>
+        <Label Content="Low Quality" HorizontalAlignment="Left" Margin="257,103,0,0" VerticalAlignment="Top"/>
+        <Label Content="High Quality" HorizontalAlignment="Left" Margin="705,103,0,0" VerticalAlignment="Top"/>
+        <Label Content="Based on your criteria above..." HorizontalAlignment="Left" Margin="10,154,0,0" VerticalAlignment="Top"/>
+        <Label x:Name ="lbLowQualityImages" Content="{Binding Path=LowQualityText}" HorizontalAlignment="Right" Margin="0,183,694,0" VerticalAlignment="Top"/>
+        <Label x:Name ="lbHighQualityImages" Content="{Binding Path=HighQualityText}" HorizontalAlignment="Right" Margin="0,214,694,0" VerticalAlignment="Top"/>
+        <Label Content="images will be categorized as Low Quality" HorizontalAlignment="Left" Margin="103,183,0,0" VerticalAlignment="Top"/>
+        <Label Content="images will be categorized as High Quality" HorizontalAlignment="Left" Margin="103,214,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnAssignCategories" Content="Assign Categories" HorizontalAlignment="Left" Margin="515,368,0,0" VerticalAlignment="Top" Width="267" Height="41" Click="btnAssignCategories_Click"/>
+
+
+    </Grid>
+</Window>
