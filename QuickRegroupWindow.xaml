@@ -5,52 +5,79 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DoveEye"
         mc:Ignorable="d"
-        Title="⚡ Quick Regroup..." Height="1040" Width="1900"
-        xmlns:src="clr-namespace:DoveEyeLogic"
-        WindowStartupLocation="CenterScreen">
+        Title="⚡ Quick Regroup..." WindowState="Maximized"
+        xmlns:src="clr-namespace:DoveVision"
+        WindowStartupLocation="CenterScreen" x:Name="QRWindow">
     <Window.Background>
         <ImageBrush ImageSource="/dovevision background compressed.jpg" Stretch="UniformToFill" Opacity="0.2"></ImageBrush>
     </Window.Background>
     <Window.Resources>
+        <Style  TargetType="Button">
+            <Setter Property="Background" Value="#FF252525"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="FontFamily" Value="OpenSans"></Setter>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="#FF252525"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
+        </Style>
         <local:QGUI x:Key="QGUI"></local:QGUI>
+        <local:Minus30Converter x:Key="converter"></local:Minus30Converter>
         <DataTemplate x:Key="ImageContainer" DataType="{x:Type src:DoveEyeContextualImage}">
             <StackPanel>
-                <Image Height="70" Source="{Binding Path=Image.DisplayThumbnail}" x:Name="Image"></Image>
+                <Image Height="110" Source="{Binding Path=Image.DisplayThumbnail}" x:Name="Image"></Image>
             </StackPanel>
         </DataTemplate>
         <DataTemplate x:Key="GroupContainer" DataType="{x:Type src:DoveEyeImageGroup}">
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" MaxWidth="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem},Path=MaxWidth,Converter={StaticResource converter}}">
                 <StackPanel Orientation="Vertical">
                     <Button x:Name="MrgUp" Click="MrgUp_Click" Height="26" Width="80" Content="Merge Up"></Button>
                     <Button x:Name="Split" Click="Split_Click" Height="26" Width="80" Content="Split..."></Button>
                     <Button x:Name="MrgDown" Click="MrgDown_Click" Height="26" Width="80" Content="Merge Down"></Button>
                 </StackPanel>
-                <ListBox x:Name="lbImgGroup" SelectionChanged="lbImgGroup_SelectionChanged" ItemsSource="{Binding Path=Images, Mode=TwoWay}"  ItemTemplate="{StaticResource ImageContainer}">
+                <ListBox MaxWidth="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},Path=MaxWidth, Converter={StaticResource converter}}" x:Name="lbImgGroup" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="lbImgGroup_SelectionChanged" ItemsSource="{Binding Path=Images, Mode=TwoWay}"  ItemTemplate="{StaticResource ImageContainer}" >
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <WrapPanel Focusable="False" Orientation="Horizontal" Width="1770"/>
+                            <WrapPanel HorizontalAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Focusable="False" Orientation="Horizontal"/>
                         </ItemsPanelTemplate>
                     </ListBox.ItemsPanel>
                     <ListBox.Background>
                         <SolidColorBrush Color="White" Opacity="0.25">
-                            
+
                         </SolidColorBrush>
                     </ListBox.Background>
                 </ListBox>
             </StackPanel>
         </DataTemplate>
     </Window.Resources>
-    <Grid x:Name="qgGrid" DataContext="{DynamicResource QGUI}">
-        <Label FontFamily="Abadi" FontSize="20" Foreground="White"  Content="DoveVision found the following groups..." HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <Button Content="Help" HorizontalAlignment="Left" Margin="1792,10,0,0" VerticalAlignment="Top" Width="90" Height="26"/>
-        <ListBox ItemTemplate="{StaticResource GroupContainer}"  ItemsSource="{Binding Path=canvas.ImageGroups, Mode=TwoWay}" ScrollViewer.CanContentScroll="false" x:Name="lvGroupContent" HorizontalAlignment="Left" Height="912" Margin="10,41,0,0" VerticalAlignment="Top" Width="1872">
+    <Grid x:Name="qgGrid" DataContext="{DynamicResource QGUI}" Width="{Binding RelativeSource={RelativeSource AncestorType=Window},Path=ActualWidth,Converter={StaticResource converter}}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="939*" MinWidth="10"></ColumnDefinition>
+            <ColumnDefinition Width="7*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="41*" MinHeight="40"></RowDefinition>
+            <RowDefinition Height="797.5*"/>
+            <RowDefinition Height="114*"/>
+            <RowDefinition Height="15*" MinHeight="40"/>
+            <RowDefinition Height="41*"/>
+        </Grid.RowDefinitions>
+        <Label FontFamily="Abadi" FontSize="20" Foreground="White"  Content="DoveVision found the following groups..." HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="34" Width="369" Grid.RowSpan="2"/>
+        <Button Content="Help" x:Name="btnHelp" Click="btnHelp_Click" HorizontalAlignment="Left" Margin="-103,10,0,0" VerticalAlignment="Top" Width="90" Height="26" Grid.Row="0" Grid.Column="2"/>
+        <ListBox ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalContentAlignment="Stretch" Width="{Binding RelativeSource={RelativeSource AncestorType=Grid},Path=Width,Converter={StaticResource converter}}" VerticalContentAlignment="Stretch" ItemTemplate="{StaticResource GroupContainer}"  ItemsSource="{Binding Path=canvas.ImageGroups, Mode=TwoWay}" ScrollViewer.CanContentScroll="false" x:Name="lvGroupContent" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="1">
             <ListBox.Background>
                 <SolidColorBrush Color="Black" Opacity="0.7">
-                    
+
                 </SolidColorBrush>
             </ListBox.Background>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                    <Setter Property="MaxWidth" Value="{Binding RelativeSource={RelativeSource AncestorType=ListBox},Path=ActualWidth}"></Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
         </ListBox>
-        <Button x:Name="btnFinish" Content="Done Regrouping Photos" HorizontalAlignment="Left" Margin="1706,958,0,0" VerticalAlignment="Top" Width="176" Height="41" Click="btnFinish_Click"/>
+        <Button x:Name="btnFinish" Content="Done Regrouping Photos" HorizontalAlignment="Left" Margin="-193,5,0,0" VerticalAlignment="Top" Width="176" Height="42" Click="btnFinish_Click" Grid.Column="1" Grid.Row="3" Grid.RowSpan="2"/>
 
     </Grid>
 </Window>

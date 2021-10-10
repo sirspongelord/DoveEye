@@ -1,0 +1,15 @@
+﻿<Window x:Class="DoveEye.AboutDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DoveEye"
+        mc:Ignorable="d"
+        Title="About DoveEye Beta v3.2" Height="450" Width="800" ResizeMode="NoResize">
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="772" Height="399"><Run FontSize="22" Text="DoveEye Beta v3.2.0"/><LineBreak/><Run/><LineBreak/><Run FontSize="16" Text="Version: Beta 3.2.0"/><LineBreak/><Run FontSize="16" Text="Web: www.dove.vision"/><LineBreak/><Run FontSize="16"/><LineBreak/><Run FontSize="16" Text="DoveEye is developed and maintained entirely by Sanjay Soni, a student hobby photographer. "/><LineBreak/><Run FontSize="16" Text="To learn more, visit www.dove.vision"/><LineBreak/><Run FontSize="16"/><LineBreak/><Run FontSize="16" Text="All background photos copyright Sanjay Soni."/><LineBreak/><Run FontSize="16"/><LineBreak/><Run FontSize="16" Text="DoveEye uses these important libraries:"/><LineBreak/><Run FontSize="16" Text="Accord.NET v3.8.0"/><LineBreak/><Run FontSize="16" Text="ImageMagick v8.3.2"/><LineBreak/><Run FontSize="16"/><LineBreak/><Run FontSize="16" Text="DoveEye does not store nor transmit your data. To learn more, visit privacy.dove.vision"/><LineBreak/><Run FontSize="16"/><InlineUIContainer/><LineBreak/></TextBlock>
+        <Button Content="Close" Click="Button_Click" Width="75" Height="30" Margin="707,379,10,10"/>
+        <Image HorizontalAlignment="Left" Source="/finch circle.png" Height="100" Margin="682,10,0,0" VerticalAlignment="Top" Width="100"/>
+        <Button Content="Donate" x:Name="btnDonate" Click="btnDonate_Click" HorizontalAlignment="Left" Margin="600,48,0,0" VerticalAlignment="Top" Width="77" Height="26"/>
+    </Grid>
+</Window>

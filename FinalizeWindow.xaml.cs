@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Threading;
-using DoveEyeLogic;
+using DoveVision;
 using System.ComponentModel;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -250,7 +250,20 @@ namespace DoveEye
                 }
             }
             SortingComplete = true;
-            MessageBox.Show("Images successfully sorted. Program will now close.");
+            MessageBox.Show("Images successfully sorted. Program will now close. Please fill the 30-second feedback form to help improve this software");
+            
+            System.Diagnostics.Process.Start("http://feedback.dove.vision");
+
+            MessageBox.Show("DoveEye will now delete temporary files. Please allow some time for this cleanup process to occur.");
+
+            foreach (DoveEyeImageGroup group in canvas.ImageGroups)
+            {
+                foreach (DoveEyeContextualImage image in group.Images)
+                {
+                    try { File.Delete(image.Image.bmpFileSource); } catch { MessageBox.Show("Error deleting temp file."); }
+                }
+            }
+
             Environment.Exit(-1);
         }
 
@@ -262,6 +275,16 @@ namespace DoveEye
 
             Thread sortThread = new Thread(new ThreadStart(SortPhotos));
             sortThread.Start();
+        }
+
+        private void btnFeedback_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://feedback.dove.vision");
+        }
+
+        private void btnDonate_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://donate.dove.vision");
         }
     }
 }

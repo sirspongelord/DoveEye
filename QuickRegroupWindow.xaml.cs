@@ -1,7 +1,8 @@
-﻿using DoveEyeLogic;
+﻿using DoveVision;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,32 @@ namespace DoveEye
     /// <summary>
     /// Interaction logic for QuickRegroupWindow.xaml
     /// </summary>
+    public class Minus30Converter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+
+            return ((double)value) - 30;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    public class Minus400Converter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+
+            return ((double)value) - 400;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
     public class QGUI : INotifyPropertyChanged
     {
         public DoveEyeImageCanvas canvas { get; set; }
@@ -45,9 +72,11 @@ namespace DoveEye
         }
         void UpdateUI()
         {
+
+
             //reset user interface
-            qgGrid.DataContext = null;
-            qgGrid.DataContext = userinterface;
+            //qgGrid.DataContext = null;
+            //qgGrid.DataContext = userinterface;
 
             //Why do you need to do this? Because you do. List<DoveEyeImageGroup> is not an observable collection because I didn't make it one
         }
@@ -142,6 +171,11 @@ namespace DoveEye
                     UpdateUI();
                 }
             }
+        }
+
+        private void btnHelp_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://help.dove.vision");
         }
     }
 }

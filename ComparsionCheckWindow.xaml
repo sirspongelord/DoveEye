@@ -20,7 +20,8 @@
         <Label Foreground="White" FontFamily="Abadi" FontSize="24" Content="Do these images belong in the same group?" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="1676" Height="53" />
         <Button x:Name="btnYes" Foreground="Green" FontSize="18" Content="Yes" HorizontalAlignment="Left" Margin="645,694,0,0" VerticalAlignment="Top" Width="177" Height="48" Click="btnYes_Click"/>
         <Button x:Name="btnNo" Foreground="Red" FontSize="18" Content="No" HorizontalAlignment="Left" Margin="874,694,0,0" VerticalAlignment="Top" Width="177" Height="48" Click="btnNo_Click"/>
-        <Label Content="{Binding Path=comparisonValue}" x:Name="lblDEBUG" Foreground="White" HorizontalAlignment="Left" Margin="10,739,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding Path=comparisonValue}" x:Name="lblDEBUG" Foreground="White" HorizontalAlignment="Left" Margin="135,739,0,0" VerticalAlignment="Top"/>
+        <Label Content="Computed Similarity:" Foreground="White" HorizontalAlignment="Left" Margin="10,739,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

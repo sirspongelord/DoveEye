@@ -15,10 +15,10 @@ using System.Windows.Shapes;
 using System.IO;
 using System.Timers;
 using System.Threading;
-using DoveEyeLogic;
+using DoveVision;
 using ImageMagick;
 using System.ComponentModel;
-using static DoveEyeLogic.DoveEyeImageProcessor;
+using static DoveVision.DoveEyeImageProcessor;
 using System.Text.RegularExpressions;
 
 namespace DoveEye
@@ -52,8 +52,7 @@ namespace DoveEye
         List<DoveEyeContextualImage> Images = new List<DoveEyeContextualImage>();
         UI userinterface = new UI();
 
-        //!! Program will not run unless this filepath exists and contains images !!
-        string root = "Y:\\Media\\Image Demo\\";
+        string root = "";
         
         
         DoveEyeImageCanvas DoveEyeCanvas;
@@ -66,9 +65,13 @@ namespace DoveEye
         {
             InitializeComponent();
             AppDomain.CurrentDomain.ProcessExit += (s, e) => ExitEventHandler(s,e);
-            int totalthreads = Environment.ProcessorCount;
+            int totalthreads = Environment.ProcessorCount - 4;
             window = new ExitEvent_CleanupWindow(ref DoveEyeCanvas);
-            userinterface.tbThreadCount_Text = (totalthreads - 4).ToString();
+            if(totalthreads <= 1)
+            {
+                totalthreads = 2;
+            }
+            userinterface.tbThreadCount_Text = (totalthreads).ToString();
             userinterface.tbScalePercentage_Text = 20.ToString();
             Grid.DataContext = userinterface;
         }
@@ -124,6 +127,7 @@ namespace DoveEye
 
             if(ImageFileInformation.Count == 0) { MessageBox.Show("Folder has no photos!"); userinterface.lblAnalysisText = ""; userinterface.OnPropertyChanged(); btnStart_Clicked = false; return; }
             int threads = Convert.ToInt32(userinterface.tbThreadCount_Text);
+            if(threads <= 1) { threads = 2; }
             int scalepercentage = Convert.ToInt32(userinterface.tbScalePercentage_Text);
 
             DoveEyeImage.SharpnessAreatype sharpType = userinterface.FaceAreaChecked ? DoveEyeImage.SharpnessAreatype.FacialFallBackAuto : DoveEyeImage.SharpnessAreatype.Auto;
@@ -141,7 +145,7 @@ namespace DoveEye
                 //calculate time remaining
                 TimeSpan elaspedTime = DateTime.Now.Subtract(startTime);
                 double secondsRemaining = ((double)DoveEyeCanvas.AnalysisManager.AnalysisProgress / elaspedTime.TotalSeconds) * (DoveEyeCanvas.AnalysisManager.TotalFiles - DoveEyeCanvas.AnalysisManager.AnalysisProgress);
-                userinterface.lblTimeRemainingText = "Time Remaining: " + Math.Floor(secondsRemaining);
+                userinterface.lblTimeRemainingText = "Time Remaining: " + Math.Floor(secondsRemaining) + " seconds";
                 userinterface.OnPropertyChanged();
             }
 
@@ -201,6 +205,39 @@ namespace DoveEye
         private void Window_Closed(object sender, EventArgs e)
         {
             Environment.Exit(-1);
+        }
+
+        private void btnFeedback_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://feedback.dove.vision");
+        }
+
+        private void btnDonate_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://donate.dove.vision/");
+        }
+
+        private void btnPrivacyPolicy_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://privacy.dove.vision/");
+
+        }
+
+        private void btnAbout_Click(object sender, RoutedEventArgs e)
+        {
+            AboutDialog dialog = new AboutDialog();
+            dialog.ShowDialog();
+        }
+
+        private void btnTerms_Click(object sender, RoutedEventArgs e)
+        {
+
+            System.Diagnostics.Process.Start("http://terms.dove.vision/");
+        }
+
+        private void btnHelp_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://help.dove.vision/");
         }
     }
 }

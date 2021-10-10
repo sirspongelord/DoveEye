@@ -11,9 +11,9 @@ using Accord.Vision;
 using Accord.Vision.Detection;
 using ImageMagick;
 using System.Linq;
-using DoveEyeLogic;
+using DoveVision;
 using System.Threading.Tasks;
-using static DoveEyeLogic.DoveEyeImageProcessor;
+using static DoveVision.DoveEyeImageProcessor;
 using DoveEye;
 using System.Windows.Media;
 using System.Windows.Interop;
@@ -22,8 +22,9 @@ using System.ComponentModel;
 using System.Drawing.Imaging;
 using Accord.MachineLearning;
 using static DoveEye.ComparsionCheckWindow;
+using System.Collections.ObjectModel;
 
-namespace DoveEyeLogic
+namespace DoveVision
 {
     //contains all backend for the program.
 
@@ -144,7 +145,6 @@ namespace DoveEyeLogic
             Image.AnalysisComplete = true;
             Image.FileUsageComplete = true;
             GC.Collect();
-#warning bad way to do this. but it works.
         }
 
         public bool Equals(DoveEyeContextualImage other)
@@ -242,7 +242,6 @@ namespace DoveEyeLogic
 
 
         public readonly double ProcessingScale; //for thumbnail and feature point size 
-#warning implementation of this was done on 2 brain cells. This uses a physical number corresponding to a percentage, instead of a decimal.
 
         //Calculated upon read unless already calculated.
         public List<SpeededUpRobustFeaturePoint> ImageFeatures
@@ -652,7 +651,7 @@ namespace DoveEyeLogic
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
-
+        
         public void ReassignIndices()
         {
             for(int i = 0; i < Images.Count; i++)
@@ -710,7 +709,7 @@ namespace DoveEyeLogic
             AnalysisManager.ImageFileInformation = ImageFileInformation;
         }
 
-        public List<DoveEyeImageGroup> ImageGroups { get; set; }
+        public ObservableCollection<DoveEyeImageGroup> ImageGroups { get; set; }
 
         public DoveEyeAnalysisManager AnalysisManager { get; set; }
 
@@ -1081,7 +1080,6 @@ namespace DoveEyeLogic
                 DoveEyeImageComparisionResult comparisonResult = new DoveEyeImageComparisionResult(ImageComparisonType.Basic, Image1, Image2, DoveEyeImageComparisionResult.ComparisonResult.Similar, 0);
                 return comparisonResult;
             }
-#warning untested code. check if datetime totalms returns negative values or causes errors
         }
         private DoveEyeImageComparisionResult DetailedComparison(DoveEyeImage Image1, DoveEyeImage Image2)
         {
@@ -1216,7 +1214,6 @@ namespace DoveEyeLogic
             {
                 TotalSharpness += bite;
             }
-#warning untestedd code
 
             
 
@@ -1311,7 +1308,6 @@ namespace DoveEyeLogic
             {
                 TotalSharpness += bite;
             }
-#warning untestedd code
 
 
 
@@ -1681,7 +1677,7 @@ namespace DoveEyeLogic
 
             public bool AnalysisComplete = false;
 
-            public List<DoveEyeImageGroup> Groupings = new List<DoveEyeImageGroup>();
+            public ObservableCollection<DoveEyeImageGroup> Groupings = new ObservableCollection<DoveEyeImageGroup>();
 
             public DoveEyeGroupingManager(ImageComparisonType cmpType, List<DoveEyeContextualImage> imgs, int MaxThreads)
             {
@@ -1824,7 +1820,6 @@ namespace DoveEyeLogic
                         }
                     }
                     return TotalImages - pending;
-#warning if errors in progress appear, the above line is probably the issue.
                 }
             }
             void ManageHumanPrompter()

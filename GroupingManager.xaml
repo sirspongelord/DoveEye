@@ -4,17 +4,29 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DoveEye"
-        xmlns:src="clr-namespace:DoveEyeLogic"
+        xmlns:src="clr-namespace:DoveVision"
         mc:Ignorable="d"
-        Title="DoveEye Beta v0.1 Analysis Results" Height="1040" Width="1900"
+        Title="DoveVision Analysis Results" WindowState="Maximized"
         Closing="GroupingManagerWindow_Closing"
         WindowStartupLocation="CenterScreen">
     <Window.Background>
         <ImageBrush ImageSource="/finchphoto.jpg" Stretch="UniformToFill" Opacity="0.25"></ImageBrush>
     </Window.Background>
     <Window.Resources>
+        <Style  TargetType="Button">
+            <Setter Property="Background" Value="#FF252525"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="FontFamily" Value="OpenSans"></Setter>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="#FF252525"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
+        </Style>
+
         <local:GroupingManagerUserInterface x:Key="GMUI"></local:GroupingManagerUserInterface>
         <local:App x:Key="AppResource"></local:App>
+        <local:Minus30Converter x:Key="converter"></local:Minus30Converter>
+        <local:Minus400Converter x:Key="converter2"></local:Minus400Converter>
 
         <DataTemplate x:Key="ImageContainer" DataType="{x:Type src:DoveEyeContextualImage}">
             <StackPanel>
@@ -24,23 +36,24 @@
 
                 <StackPanel Orientation="Horizontal">
                     <Label Foreground="White" Content="{Binding Path=Image.FileName}"></Label>
-                    <ComboBox x:Name="DropDownHighLowQuality" Margin="20,0,0,0" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Height="24" Width="120" ItemsSource="{Binding Path=QualityStates}" SelectedIndex="{Binding Path=QualitySelectedIndex,Mode=TwoWay}"></ComboBox>
+                    <ComboBox x:Name="DropDownHighLowQuality"  Margin="20,0,0,0" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" Height="24" Width="120" ItemsSource="{Binding Path=QualityStates}" SelectedIndex="{Binding Path=QualitySelectedIndex,Mode=TwoWay}">
+                    </ComboBox>
                     <Label Foreground="White" Content="{Binding Path=Image.Sharpness}"></Label>
                 </StackPanel>
             </StackPanel>
         </DataTemplate>
         <DataTemplate x:Key="GroupContainer" DataType="{x:Type src:DoveEyeImageGroup}">
-            <StackPanel>
+            <StackPanel MaxWidth="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem},Path=MaxWidth,Converter={StaticResource converter}}">
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Group Name:  " Foreground="White"></Label>
-                    <TextBox Height="20" Width="400" Text="{Binding Path=GroupName,Mode=TwoWay}"></TextBox>
+                    <TextBox Height="20" Width="220" Text="{Binding Path=GroupName,Mode=TwoWay}"></TextBox>
                     <Button Content="  Set All to High Quality  " Margin="14,0,0,0" x:Name="btnGroupHQAll" Click="btnGroupHQAll_Click"></Button>
                     <Button Content="  Set All to Low Quality  " Margin="14,0,0,0" x:Name="btnGroupLQAll" Click="btnGroupLQAll_Click"></Button>
                 </StackPanel>
-                <ListBox ItemsSource="{Binding Path=Images, Mode=TwoWay}"  ItemTemplate="{StaticResource ImageContainer}">
+                <ListBox MaxWidth="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},Path=MaxWidth, Converter={StaticResource converter}}" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=Images, Mode=TwoWay}"  ItemTemplate="{StaticResource ImageContainer}">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <WrapPanel Focusable="False" Orientation="Horizontal" Width="1400"/>
+                            <WrapPanel Focusable="False" Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
                         </ItemsPanelTemplate>
                     </ListBox.ItemsPanel>
                     <ListBox.Background>
@@ -50,22 +63,46 @@
             </StackPanel>
         </DataTemplate>
     </Window.Resources>
-    <Grid x:Name="grid" DataContext="{DynamicResource GMUI}">
-        <ListBox ScrollViewer.PanningMode="VerticalOnly" ScrollViewer.CanContentScroll="false" x:Name="lvContent" HorizontalAlignment="Left" Height="989" Margin="10,10,0,0" VerticalAlignment="Top" Width="1430" ItemsSource="{Binding Path=Canvas.ImageGroups, Mode=TwoWay}" ItemTemplate="{StaticResource GroupContainer}">
+    <Grid x:Name="grid" DataContext="{DynamicResource GMUI}" Width="{Binding RelativeSource={RelativeSource AncestorType=Window},Path=ActualWidth,Converter={StaticResource converter}}" Height="{Binding RelativeSource={RelativeSource AncestorType=Window},Path=ActualHeight,Converter={StaticResource converter}}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="13*"/>
+            <RowDefinition Height="368*"/>
+            <RowDefinition Height="602*"/>
+            <RowDefinition Height="26*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="1431*"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="180"/>
+            <ColumnDefinition Width="180"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="0*"/>
+
+        </Grid.ColumnDefinitions>
+        <ListBox ScrollViewer.PanningMode="VerticalOnly" ScrollViewer.CanContentScroll="false" x:Name="lvContent" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="0,5,0,0" VerticalAlignment="Top" ItemsSource="{Binding Path=Canvas.ImageGroups, Mode=TwoWay}" ItemTemplate="{StaticResource GroupContainer}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" Grid.RowSpan="2" >
             <ListBox.Background>
                 <SolidColorBrush Color="Black" Opacity="0.2"></SolidColorBrush>
             </ListBox.Background>
+
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                    <Setter Property="MaxWidth" Value="{Binding RelativeSource={RelativeSource AncestorType=ListBox},Path=ActualWidth}"></Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
         </ListBox>
-        <Button x:Name = "btnSharpnessSort" Click ="btnSharpnessSort_Click" Content="Sort by Sharpness" HorizontalAlignment="Left" Margin="1453,148,0,0" VerticalAlignment="Top" Width="212" Height="35"/>
-        <Button x:Name = "btnIndexSort" Click ="btnIndexSort_Click" Content="Sort by File Order" HorizontalAlignment="Left" Margin="1670,148,0,0" VerticalAlignment="Top" Width="212" Height="35"/>
-        <Button x:Name = "btnFinalize" Click ="btnFinalize_Click" FontSize="24" Content="Finish Analysis" HorizontalAlignment="Left" Margin="1453,912,0,0" VerticalAlignment="Top" Width="429" Height="87"/>
-        <Label Foreground="White" Content="Grouping Management..." HorizontalAlignment="Left" Margin="1453,10,0,0" VerticalAlignment="Top"/>
-        <Label Foreground="White" Content="Sort By..." HorizontalAlignment="Left" Margin="1453,117,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnAssignCategory" Click="btnAssignCategory_Click" Content="⚡ AutoCategorize... " HorizontalAlignment="Left" Margin="1453,263,0,0" VerticalAlignment="Top" Width="429" Height="43"/>
-        <Button x:Name="btnQRegroup" Click="btnQRegroup_Click" Content="⚡ Quick Regroup..." HorizontalAlignment="Left" Margin="1453,41,0,0" VerticalAlignment="Top" Width="429" Height="33"/>
-        <Button x:Name="btnExposureSort" Click="btnExposureSort_Click" Content="Sort by Exposure" HorizontalAlignment="Left" Margin="1453,188,0,0" VerticalAlignment="Top" Width="212" Height="35"/>
-        <Button x:Name="btnEnlargedView" Content="⚡ Enlarged View... " HorizontalAlignment="Left" Margin="1453,311,0,0" VerticalAlignment="Top" Width="429" Height="43" Click="btnEnlargedView_Click"/>
-        <Image x:Name="LargeThumbView" HorizontalAlignment="Left" Height="471" Margin="1453,436,0,0" VerticalAlignment="Top" Width="429"/>
+        <Button x:Name = "btnSharpnessSort" Click ="btnSharpnessSort_Click" Content="Sort by Sharpness" HorizontalAlignment="Stretch" Margin="0,30,0,0" VerticalAlignment="Top" Height="35" Grid.Row="1" Grid.Column="3"/>
+        <Button x:Name = "btnIndexSort" Click ="btnIndexSort_Click" Content="Sort by File Order" HorizontalAlignment="Stretch" Margin="10,30,0,0" VerticalAlignment="Top" Height="35" Grid.Row="1" Grid.RowSpan="1" Grid.Column="4"/>
+        <Button x:Name = "btnFinalize" Click ="btnFinalize_Click" FontSize="24" Content="Finish DoveVision Analysis" HorizontalAlignment="Stretch" Margin="0,-80,0,0" VerticalAlignment="Top" Height="60" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2"/>
+        <Label Foreground="White" Content="Grouping Management..." HorizontalAlignment="Left" Margin="0,338,0,0" VerticalAlignment="Top" Height="26" Width="142" Grid.Row="1" Grid.Column="3"/>
+        <Label Foreground="White" Content="Sort By..." HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="26" Width="56" Grid.Row="1" Grid.Column="3"/>
+        <Button x:Name="btnAssignCategory" Click="btnAssignCategory_Click" Content="⚡ AutoCategorize... " HorizontalAlignment="Stretch" Margin="0,43,0,0" VerticalAlignment="Top" Height="33" Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="3"/>
+        <Button x:Name="btnQRegroup" Click="btnQRegroup_Click" Content="⚡ Quick Regroup..." HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="33" Grid.Row="2" Grid.Column="3"/>
+        <Button x:Name="btnExposureSort" Click="btnExposureSort_Click" Content="Sort by Exposure" HorizontalAlignment="Stretch" Margin="0,75,0,0" VerticalAlignment="Top" Grid.ColumnSpan="1" Height="35" Grid.Row="1" Grid.Column="3"/>
+        <Button Visibility="Hidden" x:Name="btnEnlargedView" Content="⚡ Enlarged View... " HorizontalAlignment="Left" Margin="306,18,-736,0" VerticalAlignment="Top" Width="430" Height="43" Click="btnEnlargedView_Click" Grid.Row="1" Grid.Column="6"/>
+        <Button Content="Help" FontSize="16" x:Name="btnHelp" Click="btnHelp_Click" Grid.Column="3" HorizontalAlignment="Stretch" Margin="0,-120,0,0" Grid.Row="3" VerticalAlignment="Top" Height="30" Grid.ColumnSpan="2"/>
 
 
     </Grid>

@@ -12,8 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using DoveEyeLogic;
-using static DoveEyeLogic.DoveEyeImageProcessor;
+using DoveVision;
+using static DoveVision.DoveEyeImageProcessor;
 
 namespace DoveEye
 {
@@ -148,6 +148,11 @@ namespace DoveEye
         private void btnEnlargedView_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Unfortunately, the enlarged view and live preview have not been implemented yet.");
+        }
+
+        private void btnHelp_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://help.dove.vision");
         }
     }
 }

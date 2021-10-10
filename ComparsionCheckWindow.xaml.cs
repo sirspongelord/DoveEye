@@ -2,12 +2,12 @@
 using System.Windows;
 using System.Windows.Media.Imaging;
 using System.Drawing;
-using DoveEyeLogic;
+using DoveVision;
 using System.Windows.Interop;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading;
-using static DoveEyeLogic.DoveEyeImageProcessor.DoveEyeGroupingManager;
+using static DoveVision.DoveEyeImageProcessor.DoveEyeGroupingManager;
 
 namespace DoveEye
 {

@@ -1,4 +1,17 @@
-﻿Changelog 9/27/2021:
+﻿Patch 3.2.0:
+- Significantly improved QuickRegroup UI Performance 
+- Implemented dove icon
+- Implemented about
+- Implemented privacy policy and terms of use
+- Improved user interface design
+- Fixed a critical issue where the program UI did not scale to variable window sizes
+- Implemented help
+- Implemented donate
+
+Go for launch!
+
+
+Patch 3.1.5:
 - Fixed a bug where the User interface would lag for a long time when "Set All to High Quality" or LQ was clicked.
 - Fixed a bug where the program would calculate extremely high sharpness values when images contain few feature points.
 - Improved autocategorize with respect to exposure by implementing a new system that searches for outliers for exposure assignment
@@ -7,7 +20,7 @@
 	Low Quality as the standard deviation was near-zero.
 - Fixed a bug where the program would crash if it tries to create a folder with invalid characters.
 
-Chagelog 9/25/21:
+Patch 3.1.4:
 - Patched an issue where reading a MagickImage did not occur properly even on fallback due to memory issues by making it try 10 more times before crashing the program.
 - Implemnted AI Face Detection (Experimental)
 - Implemented DoveEye Installer and fixed relevant bugs (Now works!)

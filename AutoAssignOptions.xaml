@@ -5,9 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DoveEye"
         mc:Ignorable="d"
-        Title="DoveEye Beta v0.1 Automatic Culling Options" Height="450" Width="800">
+        Title="DoveVision ⚡ AutoCategorize" Height="450" Width="800">
+    <Window.Background>
+        <ImageBrush ImageSource="/quail.jpg" Opacity="0.25" Stretch="UniformToFill"></ImageBrush>
+    </Window.Background>
     <Window.Resources>
         <local:AAOUI x:Key="UI"></local:AAOUI>
+        <Style  TargetType="Button">
+            <Setter Property="Background" Value="#FF252525"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="FontFamily" Value="OpenSans"></Setter>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="White"></Setter>
+        </Style>
     </Window.Resources>
     <Grid x:Name="AAGrid" DataContext="{StaticResource UI}">
         <Label Content="Automatically Assign Low/High Quality Tags Based On..." HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
@@ -22,7 +33,7 @@
         <Label x:Name ="lbHighQualityImages" Content="{Binding Path=HighQualityText}" HorizontalAlignment="Right" Margin="0,214,694,0" VerticalAlignment="Top"/>
         <Label Content="images will be categorized as Low Quality" HorizontalAlignment="Left" Margin="103,183,0,0" VerticalAlignment="Top"/>
         <Label Content="images will be categorized as High Quality" HorizontalAlignment="Left" Margin="103,214,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnAssignCategories" Content="Assign Categories" HorizontalAlignment="Left" Margin="515,368,0,0" VerticalAlignment="Top" Width="267" Height="41" Click="btnAssignCategories_Click"/>
+        <Button x:Name="btnAssignCategories" Content="⚡ AutoCategorize"  HorizontalAlignment="Left" Margin="515,368,0,0" VerticalAlignment="Top" Width="267" Height="41" Click="btnAssignCategories_Click"/>
 
 
     </Grid>

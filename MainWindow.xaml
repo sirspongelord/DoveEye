@@ -5,33 +5,49 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DoveEye"
         mc:Ignorable="d"
-        Title="DoveEye Beta v3.1" Height="457" Width="805.333"
-        Closed="Window_Closed">
+        Title="DoveEye Beta v3.2" Height="457" Width="805.333"
+        Closed="Window_Closed" ResizeMode="CanMinimize">
     <Window.Background>
         <ImageBrush ImageSource="dovevision background compressed.jpg" Stretch="UniformToFill" Opacity="0.3"></ImageBrush>
     </Window.Background>
     <Window.Resources>
         <local:UI x:Key="userinterface"></local:UI>
+        <Style  TargetType="Button">
+            <Setter Property="Background" Value="#FF252525"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="FontFamily" Value="OpenSans"></Setter>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="#FF252525"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
+        </Style>
     </Window.Resources>
     <Grid x:Name="Grid" DataContext="{DynamicResource userinterface}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="79*"/>
             <ColumnDefinition Width="718*"/>
         </Grid.ColumnDefinitions>
-        <Image Source="/logo.png" Margin="631,18,15,328" Grid.Column="1"></Image>
-        <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="20,18,0,0" TextWrapping="Wrap" Text="DoveEye Beta v3.1" VerticalAlignment="Top" Width="762" Height="41" FontSize="36" FontFamily="Calibri" Grid.ColumnSpan="2"/>
+        <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="20,18,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="616" Height="51" FontSize="36" Grid.ColumnSpan="2"><Run Foreground="#FFB6D7A8" FontWeight="Bold" Text="DoveEye"/><Run Text=" Beta v3.2"/></TextBlock>
         <Button x:Name="btnSelectSource" Content="Select Source Directory..." HorizontalAlignment="Left" VerticalAlignment="Top" Width="184" Margin="20,78,0,0"  Height="27" Click="btnSelectSource_Click" Grid.ColumnSpan="2"/>
         <Label Foreground="White" x:Name="lblSourceDirectory" Content="{Binding Path=textforlabel, Mode=TwoWay}" HorizontalAlignment="Left" Margin="130,78,0,0" VerticalAlignment="Top" Height="27" Grid.Column="1"/>
-        <Button x:Name="btnStartAnalysis" FontSize="16" Content="Start DoveVision Analysis" HorizontalAlignment="Left" Margin="20,307,0,0" VerticalAlignment="Top" Width="223" Height="29" Click="btnStartAnalysis_Click" Grid.ColumnSpan="2"/>
+        <Button x:Name="btnStartAnalysis" FontSize="16" Content="Start DoveVision Analysis" HorizontalAlignment="Left" Margin="20,300,0,0" VerticalAlignment="Top" Width="223" Height="42" Click="btnStartAnalysis_Click" Grid.ColumnSpan="2"/>
         <ProgressBar Minimum="0" Maximum="{Binding Path=totalimages,Mode=TwoWay}" Value="{Binding Path=progress,Mode=TwoWay}" HorizontalAlignment="Left" Height="10" Margin="20,399,0,0" VerticalAlignment="Top" Width="762" Grid.ColumnSpan="2"/>
         <Label x:Name="lblAnalysisItem" Foreground="White" Content="{Binding Path=lblAnalysisText,Mode=TwoWay}" HorizontalAlignment="Left" Margin="20,368,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="350"/>
-        <Label x:Name="lblTimeRemaining" Foreground="White" Content="{Binding Path=lblTimeRemainingText,Mode=TwoWay}" Grid.Column="1" HorizontalContentAlignment="Right" HorizontalAlignment="Right" Margin="0,368,15,0" VerticalAlignment="Top" Width="147"/>
-        <TextBox x:Name="tbThreadCount" PreviewTextInput="tbThreadCount_PreviewTextInput" Text="{Binding Path=tbThreadCount_Text}" HorizontalAlignment="Left" Height="23" Margin="0,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="125" Grid.Column="1"/>
+        <Label x:Name="lblTimeRemaining" Foreground="White" Content="{Binding Path=lblTimeRemainingText,Mode=TwoWay}" Grid.Column="1" HorizontalContentAlignment="Right" HorizontalAlignment="Right" Margin="0,368,15,0" VerticalAlignment="Top" Width="204"/>
+        <TextBox ToolTip="Use 2-4 fewer threads than logical processors on your system" x:Name="tbThreadCount" PreviewTextInput="tbThreadCount_PreviewTextInput" Text="{Binding Path=tbThreadCount_Text}" HorizontalAlignment="Left" Height="23" Margin="0,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="125" Grid.Column="1"/>
         <Label Content="Threads:" Foreground="White" HorizontalAlignment="Left" Margin="20,127,0,0" VerticalAlignment="Top"/>
-        <Label Foreground="White" Content="Note: Use 2-4 fewer threads than logical processors on your system." Grid.Column="1" HorizontalAlignment="Left" Margin="130,130,0,0" VerticalAlignment="Top"/>
+        <Label Foreground="White" Content="Note: Use 2-4 fewer threads than logical processors on your system." Grid.Column="1" HorizontalAlignment="Left" Margin="130,130,0,0" VerticalAlignment="Top" Height="23"/>
         <TextBox x:Name="tbThreadCount_Copy" PreviewTextInput="tbThreadCount_PreviewTextInput" Text="{Binding Path=tbScalePercentage_Text}" HorizontalAlignment="Left" Height="23" Margin="65,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" Grid.Column="1"/>
         <Label Content="Image Analysis Scale:" Foreground="White" HorizontalAlignment="Left" Margin="20,158,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="124"/>
         <Label Foreground="White" Content="Note: Default is 20. Increase for slightly better analysis accuracy. Decrease to lower memory and disk usage. &#10;For images above 25 megapixels, set to 10 for better performance. Avoid going below 5 or above 30." Grid.Column="1" HorizontalAlignment="Left" Margin="130,158,0,0" VerticalAlignment="Top"/>
-        <CheckBox Foreground="White" Content="(Experimental) Use AI Face Detection when calculating Sharpness (Check this if your main subject is faces, such as portraits)" IsChecked="{Binding Path=FaceAreaChecked}" HorizontalAlignment="Left" Margin="20,205,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="726"/>
+        <CheckBox Foreground="White" Content="(Experimental) Use AI Face Detection when calculating Sharpness (Check this if main subject includes faces)" IsChecked="{Binding Path=FaceAreaChecked}" HorizontalAlignment="Left" Margin="20,205,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="726"/>
+        <Button Content="Feedback" x:Name="btnFeedback" Click="btnFeedback_Click" Grid.Column="1" HorizontalAlignment="Left" Margin="612,307,0,0" VerticalAlignment="Top" Width="91" Height="19"/>
+        <Button Content="Donate" x:Name="btnDonate" Click="btnDonate_Click" Visibility="Visible" Grid.Column="1" HorizontalAlignment="Left" Margin="612,331,0,0" VerticalAlignment="Top" Width="91" Height="29"/>
+        <Button Content="Privacy Policy" x:Name="btnPrivacyPolicy" Click="btnPrivacyPolicy_Click" Grid.Column="1" HorizontalAlignment="Left" Margin="612,284,0,0" VerticalAlignment="Top" Width="91" Height="18"/>
+        <Button Content="About" x:Name="btnAbout" Click="btnAbout_Click" Grid.Column="1" HorizontalAlignment="Left" Margin="639,108,0,0" VerticalAlignment="Top" Width="52" Height="29"/>
+        <Label Content="By continuing, you agree to the Privacy Policy and Terms of Use" Foreground="White" Grid.Column="1" HorizontalAlignment="Left" Margin="169,307,0,0" VerticalAlignment="Top" Height="29"/>
+        <Button Content="Terms of Use" x:Name="btnTerms" Click="btnTerms_Click" Grid.Column="1" HorizontalAlignment="Left" Margin="612,260,0,0" VerticalAlignment="Top" Width="91" Height="19"/>
+        <Image Grid.Column="1" Margin="610,10,15,323" Source="dove.png" Stretch="Fill"/>
+        <Button Grid.ColumnSpan="2" Content="Help" x:Name="btnHelp" Click="btnHelp_Click" HorizontalAlignment="Left" Margin="20,347,0,0" VerticalAlignment="Top" Width="223"/>
     </Grid>
 </Window>

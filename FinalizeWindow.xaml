@@ -5,24 +5,42 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DoveEye"
         mc:Ignorable="d"
-        Title="Finalize DoveEye Analysis" Height="450" Width="800">
+        Title="Finalize DoveEye Analysis" Height="450" Width="800" ResizeMode="NoResize">
+    <Window.Background>
+        <ImageBrush ImageSource="/finchphoto.jpg" Stretch="UniformToFill" Opacity="0.20"></ImageBrush>
+    </Window.Background>
     <Window.Resources>
         <local:FinalizeWindowUI x:Key="FUI"></local:FinalizeWindowUI>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="White"></Setter>
+        </Style>
+        <Style TargetType="CheckBox">
+            <Setter Property="Foreground" Value="White"></Setter>
+        </Style>
+        <Style  TargetType="Button">
+            <Setter Property="Background" Value="#FF252525"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="FontFamily" Value="OpenSans"></Setter>
+        </Style>
     </Window.Resources>
     <Grid x:Name="FinalizeGrid" DataContext="{DynamicResource FUI}">
-        <CheckBox IsChecked="{Binding Path=KeepSrcAsDest,Mode=TwoWay}" Content="Keep Source Folder as Destination" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top"/>
+        <CheckBox IsChecked="{Binding Path=KeepSrcAsDest,Mode=TwoWay}" Content="Keep Source Folder as Destination" HorizontalAlignment="Left" Margin="21,120,0,0" VerticalAlignment="Top"/>
         <Label Content="DoveEye will now organize your images into folders." HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <CheckBox IsChecked="{Binding Path=FolderGroups,Mode=TwoWay}" Content="Create Folders per Image Group" HorizontalAlignment="Left" Margin="10,169,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnSelectDest" Content="Select Destination Directory" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" Width="166" Click="btnSelectDest_Click"/>
-        <Label Content="Additional Options:" HorizontalAlignment="Left" Margin="10,138,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.781,-0.628"/>
-        <Label Content="{Binding Path=SourceText}" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
-        <Label Content="{Binding Path=DestinationText}" HorizontalAlignment="Left" Margin="181,69,0,0" VerticalAlignment="Top"/>
+        <CheckBox IsChecked="{Binding Path=FolderGroups,Mode=TwoWay}" Content="Create Folders per Image Group" HorizontalAlignment="Left" Margin="21,189,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnSelectDest" Content="Select Destination Directory" HorizontalAlignment="Left" Margin="21,92,0,0" VerticalAlignment="Top" Width="166" Click="btnSelectDest_Click"/>
+        <Label Content="Additional Options:" HorizontalAlignment="Left" Margin="10,158,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.781,-0.628"/>
+        <Label Content="{Binding Path=SourceText}" HorizontalAlignment="Left" Margin="21,61,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding Path=DestinationText}" HorizontalAlignment="Left" Margin="192,87,0,0" VerticalAlignment="Top"/>
         <ProgressBar Minimum="0" Value="{Binding Path=pbValue}" Maximum="{Binding Path=pbMaximum}" HorizontalAlignment="Left" Height="10" Margin="10,399,0,0" VerticalAlignment="Top" Width="772"/>
-        <CheckBox IsEnabled="False" IsChecked ="{Binding Path=DeletePhotos,Mode=OneWayToSource}" Content="Delete Low-Quality Images Automatically (Disabled for Beta)" HorizontalAlignment="Left" Margin="10,189,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblDelWarning" Content="WARNING: THIS WILL IRREVERSIBLY DELETE YOUR PHOTOS." Visibility="{Binding Path=displayWarning}" HorizontalAlignment="Left" Margin="10,209,0,0" VerticalAlignment="Top"/>
-        <Button Content="Finish DoveVision Analysis" x:Name="btnSortPhotos" Click="btnSortPhotos_Click" HorizontalAlignment="Left" Margin="10,253,0,0" VerticalAlignment="Top" Width="247" Height="37"/>
+        <CheckBox IsEnabled="False" IsChecked ="{Binding Path=DeletePhotos,Mode=OneWayToSource}" Content="Delete Low-Quality Images Automatically (Disabled for Beta)" HorizontalAlignment="Left" Margin="21,209,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblDelWarning" Content="WARNING: THIS WILL IRREVERSIBLY DELETE YOUR PHOTOS." Visibility="{Binding Path=displayWarning}" HorizontalAlignment="Left" Margin="21,229,0,0" VerticalAlignment="Top"/>
+        <Button FontSize="18" Content="Finish DoveVision Analysis" x:Name="btnSortPhotos" Click="btnSortPhotos_Click" HorizontalAlignment="Left" Margin="10,293,0,0" VerticalAlignment="Top" Width="247" Height="37"/>
         <Label Content="{Binding Path=AnalysisLabel_Text}" HorizontalAlignment="Left" Margin="10,368,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.307,0.372"/>
         <TextBlock FontFamily="Courier New" Visibility="Hidden" HorizontalAlignment="Left" Margin="415,15,0,0" TextWrapping="Wrap" Text="{Binding Path=RichBox_Text}" VerticalAlignment="Top" Width="367" Height="379" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True"/>
+        <Button x:Name="btnFeedback" Click="btnFeedback_Click" Content="Feedback" HorizontalAlignment="Left" Margin="622,58,0,0" VerticalAlignment="Top" Width="160" Height="29"/>
+        <Button Content="Donate" Visibility="Visible" HorizontalAlignment="Left" Margin="622,293,0,0" x:Name="btnDonate" Click="btnDonate_Click" VerticalAlignment="Top" Width="160" Height="37"/>
+        <Label Content="DoveEye is developed and maintained entirely by one student developer." HorizontalAlignment="Left" Margin="386,262,0,0" VerticalAlignment="Top"/>
+        <Label Content="Select a destination to move your photos..." HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
